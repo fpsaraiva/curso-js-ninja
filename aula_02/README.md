@@ -1,3 +1,5 @@
+# Desafio Semana 02
+
 // Crie uma função que receba dois argumentos e retorne a soma dos mesmos.
 ```
 function soma(x, y) {

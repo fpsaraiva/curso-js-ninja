@@ -29,6 +29,8 @@ var souninja = true;
 ```
 var comida = ['arroz', 'feijao', 'ovo'];
 ```
+# Desafio Semana 01
+
 // Digite a instrução que imprime o valor de 'feijao', que está na variável `comida`.
 ```
 comida[1];
