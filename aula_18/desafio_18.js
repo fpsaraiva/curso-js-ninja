@@ -21,7 +21,7 @@
     return cpf.replace(/\D/g, '');
   }
 
-  var cpfs = ["049-214 3421-1", "210.458.522-05", "735 500 794 - 22", "101.123-131x32"];
+  var cpfs = ['049-214 3421-1', '210.458.522-05', '735 500 794 - 22', '101.123-131x32'];
 
   cpfs.forEach(function(cpf) {
     console.log(cleanCPF(cpf));
@@ -50,7 +50,9 @@
   ["junho", "julho"]
   */
   console.log( '\nMatch com as palavras "junho" ou "julho" para a frase "Os meses de janeiro, junho e julho começam com a letra j.":' );
-  // ?
+  console.log('Os meses de janeiro, junho e julho começam com a letra j.'.match(
+    /ju[nl]ho/g
+  ));
 
   /*
   Crie uma expressão regular que faça o match com a abertura de uma tag
@@ -62,7 +64,7 @@
   ["<div>", "<section>", "<blockquote>"]
   */
   console.log( '\nMatch com a abertura de uma tag HTML:' );
-  // ?
+  console.log('<div><section><blockquote>Texto <img /></blockquote></section></div>'.match(/<\w+>/g));
 
   /*
   Crie uma expressão regular que faça o match com uma tag HTML vazia, casando
@@ -74,7 +76,8 @@
   ["<li></li>", "<li></li>", "<span></span>"]
   */
   console.log( '\nMatch com tags HTML vazias (abertura e fechamento da tag):' );
-  // ?
+  console.log('<div><ul><li></li><li></li><li><span></span></li></ul></div>'
+    .match(/<\w+><\/\w+>/g));
 
   /*
   Vamos complicar um pouco agora :D
