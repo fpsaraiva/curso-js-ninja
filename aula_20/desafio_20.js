@@ -82,12 +82,12 @@
     event.preventDefault();
     if(!$inputUsername.value)
         return alert('Prencha o nome do usuário!');
-    if($inputEmail.value)
+    if(!$inputEmail.value)
         return alert('Preencha o e-mail!');
-    if(!$message)
-        return alert('Preencha a mensagem!')
     if(!isValidEmail($inputEmail.value))
         return alert('Entre com um e-mail válido!');
+    if(!$message.value)
+        return alert('Preencha a mensagem!')
     if(confirm('Tem certeza que deseja enviar o formulário?'))
         return alert('Enviado com sucesso!');
     return alert('Enviado com sucesso');
@@ -117,6 +117,8 @@
       - "rita-marica@titica.a.b"
       - "agua_@evida.br.com"
   */
-  // ?
+  function isValidEmail(email) {
+    return /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
+  }
   
 })(window, document);
