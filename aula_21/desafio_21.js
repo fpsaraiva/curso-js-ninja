@@ -21,4 +21,22 @@
   var $reset = doc.querySelector('[data-js="reset"]');
   var interval;
 
+  $start.addEventListener('click', startTimer, false);
+  $stop.addEventListener('click', stopTimer, false);
+  $reset.addEventListener('click', resetTimer, false)
+
+  function startTimer() {
+    $timer.value = +$timer.value + 1;
+    interval = setTimeout(startTimer, 1000);
+  }
+
+  function stopTimer() {
+    clearTimeout(interval);
+  }
+
+  function resetTimer() {
+    $timer.value = 0;
+    stopTimer();
+  }
+
 })(window, document);
