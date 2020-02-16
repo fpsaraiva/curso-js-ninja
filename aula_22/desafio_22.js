@@ -1,4 +1,4 @@
-(function(win, doc) { 
+(function() { 
   'use strict;'
   
   /*
@@ -44,7 +44,7 @@
   function sum() {
     console.log(arguments);
     return Array.prototype.reduce.call(arguments, function(accumulated, actualItem) {
-      return accumulated + actualItem;
+      return (+accumulated) + (+actualItem);
     });
   };
 
@@ -62,13 +62,13 @@
   entrados pelo usuário. Mostre para o usuário a seguinte frase:
   "Entre com alguns números que serão somados:"
   */
-  // ?
+  var userEntry = prompt('Entre alguns números que serão somados:');
 
   /*
   Mostre no console o valor entrado pelo usuário:
   */
   console.log( '\nEntrada do usuário:' );
-  // ?
+  console.log(userEntry);
 
   /*
   Crie uma função chamada `justNumbers`, que recebe por parâmetro uma string
@@ -76,20 +76,23 @@
   da string. Mostre a representação em string dessa função no console.
   */
   console.log( '\nFunção que limpa entrada do usuário (somente números):' );
-  // ?
+  function justNumbers(entry) {
+    return entry.replace(/\D+/g, ',').split(',');
+  }
 
   /*
   Usando a função acima, faça a limpeza dos valores entrados pelo usuário,
   atribuindo o resultado à uma variável `numbers`.
   */
   console.log( '\nEntrada do usuário limpa. Somente números:' );
-  // ?
+  var numbers = justNumbers(userEntry);
+  console.log(numbers);
 
   /*
   Agora com o array de números, utilize a função `sum` para somar todos os
   números desse array e mostre o resultado no console.
   */
   console.log( '\nSomar números entrados pelo usuário:' );
-  // ?
- 
-})(window, document);
+  console.log(sum.apply(sum, numbers));
+  
+})();
