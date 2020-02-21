@@ -52,32 +52,39 @@
     });
   }
 
-  function removeLastItemIfItIsAnOperator(number) {
-    if(isLastItemAnOperation(number)) {
-      return number.slice(0, -1);
+  function removeLastItemIfItIsAnOperator(string) {
+    if(isLastItemAnOperation(string)) {
+      return string.slice(0, -1);
     }
-    return number;
+    return string;
   }
 
   function handleClickEqual() {
     $visor.value = removeLastItemIfItIsAnOperator($visor.value);
     var allValues = $visor.value.match(/\d+[+x÷-]?/g);
-    $visor.value = allValues.reduce(function(accumulated, actual) {
-      var firstValue = accumulated.slice(0, -1);
-      var operator = accumulated.split('').pop();
-      var lastValue = removeLastItemIfItIsAnOperator(actual);
-      var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
-      switch(operator) {
-        case '+':
-          return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
-        case '-':
-          return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
-        case 'x':
-          return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
-        case '÷':
-          return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
-      }
-    });
+    $visor.value = allValues.reduce(calculateAllValues);
+  }
+
+  function calculateAllValues(accumulated, actual) {
+    var firstValue = accumulated.slice(0, -1);
+    var operator = accumulated.split('').pop();
+    var lastValue = removeLastItemIfItIsAnOperator(actual);
+    var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
+    return doOperation(operator, firstValue, lastValue) + lastOperator;
+
+  }
+  
+  function doOperation(operator, firstValue, lastValue) {
+    switch(operator) {
+      case '+':
+        return Number(firstValue) + Number(lastValue);
+      case '-':
+        return Number(firstValue) - Number(lastValue);
+      case 'x':
+        return Number(firstValue) * Number(lastValue);
+      case '÷':
+        return Number(firstValue) / Number(lastValue);
+    }
   }
 
   initialize();
