@@ -104,17 +104,55 @@
 
   function handleSubmitFormCEP(event) {
     event.preventDefault();
-    var url = 'http://apps.widenet.com.br/busca-cep/api/cep/[CEP].json'.replace(
-      '[CEP]', $inputCEP.get()[0].value);
+    var url = getUrl();
     ajax.open('GET', url);
     ajax.send();
     ajax.addEventListener('readystatechange', handleReadyStateChange);
   }
 
+  function getUrl() {
+    return 'https://apps.widenet.com.br/busca-cep/api/cep/[CEP].json'.replace(
+      '[CEP]', 
+      $inputCEP.get()[0].value.replace(/\D/g, ''));
+  }
+
   function handleReadyStateChange() {
-    if(ajax.readState === 4 && ajax.status === 200) {
-      console.log('Popular formulário', ajax.responseText);
+    if(isRequestOk()) {
+      fillCEPFields();
     }
+  }
+
+  function isRequestOk() {
+    return ajax.readState === 4 && ajax.status === 200;
+  }
+
+  function fillCEPFields() {
+    var data = parseData();
+    if(!data)
+      return console.log('DATA ERROR', data);
+    console.log('DATA', data);
+    var $logradouro = new DOM('[data-js="logradouro"]');
+    var $bairro = new DOW('[data-js="bairro"]');
+    var $estado = new DOM('[data-js="estado"]');
+    var $cidade = new DOM('[data-js="cidade"]');
+    var $cep = new DOM('[data-js="cep"]');
+
+    $logradouro.get()[0].textContent = data.logradouro;
+    $bairro.get()[0].textContent = data.bairro;
+    $estado.get()[0].textContent = data.uf;
+    $cidade.get()[0].textContent = data.localidade;
+    $cep.get()[0].textContent = data.cep;
+  }
+
+  function parseData() {
+    var result;
+    try{
+      JSON.parse(ajax.responseText);
+    }
+    catch(e) {
+      result = null;
+    }
+    return result;
   }
 
 })();
