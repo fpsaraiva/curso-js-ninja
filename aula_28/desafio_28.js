@@ -97,7 +97,24 @@
     || Object.prototype.toString.call(param) === '[object Undefined]';
   };
 
-  //var DOM = new DOM();
-  console.log(DOM.isNull());
+  var $formCEP = new DOM('[data-js="form-cep"]');
+  var $inputCEP = new DOM('[data-js="input-cep"]');
+  $formCEP.on('submit', handleSubmitFormCEP);
+  var ajax = new XMLHttpRequest();
+
+  function handleSubmitFormCEP(event) {
+    event.preventDefault();
+    var url = 'http://apps.widenet.com.br/busca-cep/api/cep/[CEP].json'.replace(
+      '[CEP]', $inputCEP.get()[0].value);
+    ajax.open('GET', url);
+    ajax.send();
+    ajax.addEventListener('readystatechange', handleReadyStateChange);
+  }
+
+  function handleReadyStateChange() {
+    if(ajax.readState === 4 && ajax.status === 200) {
+      console.log('Popular formulário', ajax.responseText);
+    }
+  }
 
 })();
