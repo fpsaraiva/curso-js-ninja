@@ -123,7 +123,7 @@
   }
 
   function isRequestOk() {
-    return ajax.readState === 4 && ajax.status === 200;
+    return ajax.readyState === 4 && ajax.status === 200;
   }
 
   function fillCEPFields() {
@@ -132,7 +132,7 @@
       return console.log('DATA ERROR', data);
     console.log('DATA', data);
     var $logradouro = new DOM('[data-js="logradouro"]');
-    var $bairro = new DOW('[data-js="bairro"]');
+    var $bairro = new DOM('[data-js="bairro"]');
     var $estado = new DOM('[data-js="estado"]');
     var $cidade = new DOM('[data-js="cidade"]');
     var $cep = new DOM('[data-js="cep"]');
@@ -147,7 +147,7 @@
   function parseData() {
     var result;
     try{
-      JSON.parse(ajax.responseText);
+      return JSON.parse(ajax.responseText);
     }
     catch(e) {
       result = null;
