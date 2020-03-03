@@ -99,8 +99,8 @@
 
   var $formCEP = new DOM('[data-js="form-cep"]');
   var $inputCEP = new DOM('[data-js="input-cep"]');
-  $formCEP.on('submit', handleSubmitFormCEP);
   var ajax = new XMLHttpRequest();
+  $formCEP.on('submit', handleSubmitFormCEP);
 
   function handleSubmitFormCEP(event) {
     event.preventDefault();
@@ -136,12 +136,11 @@
     var $estado = new DOM('[data-js="estado"]');
     var $cidade = new DOM('[data-js="cidade"]');
     var $cep = new DOM('[data-js="cep"]');
-
-    $logradouro.get()[0].textContent = data.logradouro;
-    $bairro.get()[0].textContent = data.bairro;
-    $estado.get()[0].textContent = data.uf;
-    $cidade.get()[0].textContent = data.localidade;
-    $cep.get()[0].textContent = data.cep;
+    $logradouro.get()[0].textContent = data.address;
+    $bairro.get()[0].textContent = data.district;
+    $estado.get()[0].textContent = data.state;
+    $cidade.get()[0].textContent = data.city;
+    $cep.get()[0].textContent = data.code;
   }
 
   function parseData() {
@@ -153,6 +152,15 @@
       result = null;
     }
     return result;
+  }
+
+  function getMessage() {
+    var messages = {
+      loading: 'Buscando informações para o CEP [CEP]...',
+      ok: 'Endereço referente ao CEP [CEP]:',
+      error: 'Não encontramos o endereço para o CEP [CEP].'
+    }
+    return messages[type];
   }
 
 })();
