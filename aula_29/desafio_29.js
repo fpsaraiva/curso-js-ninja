@@ -31,4 +31,10 @@
   que será nomeado de "app".
   */
 
+  function app() {
+
+  }
+
+  app().init();
+
 })();
